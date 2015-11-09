@@ -8,7 +8,7 @@ import kotlin.template.StringTemplate
  * Processes a connection from the pool using the given function block
  */
 fun <T> DataSource.use(block : (Connection) -> T): T {
-    val connection = getConnection()
+    val connection = connection
     if (connection != null) {
         try {
             return block(connection)
