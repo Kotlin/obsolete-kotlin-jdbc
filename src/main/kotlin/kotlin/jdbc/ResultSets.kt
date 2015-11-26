@@ -19,7 +19,7 @@ public fun <R> ResultSet.use(block : (ResultSet) -> R) : R {
 /**
 * Creates an iterator through a [[ResultSet]]
 */
-fun ResultSet.iterator() : Iterator<ResultSet> {
+operator fun ResultSet.iterator() : Iterator<ResultSet> {
     val rs = this
     return object : Iterator<ResultSet>{
         public override fun hasNext() : Boolean = rs.next()
@@ -49,8 +49,8 @@ fun <T> ResultSet.map(fn : (ResultSet) -> T) : Iterable<T> {
  * Returns array with column names
  */
 fun ResultSet.getColumnNames() : Array<String> {
-    val meta = getMetaData()
-    return Array<String>(meta.getColumnCount(), {meta.getColumnName(it + 1) ?: it.toString()})
+    val meta = metaData
+    return Array(meta.columnCount, {meta.getColumnName(it + 1) ?: it.toString()})
 }
 
 /**
@@ -58,7 +58,7 @@ fun ResultSet.getColumnNames() : Array<String> {
  * @columnNames you can specify column names to extract otherwise all columns will be extracted
  */
 fun ResultSet.getValues(columnNames : Array<String> = getColumnNames()) : Array<Any?> {
-    return Array<Any?>(columnNames.size(), {
+    return Array(columnNames.size, {
         this[columnNames[it]]
     })
 }
@@ -68,7 +68,7 @@ fun ResultSet.getValues(columnNames : Array<String> = getColumnNames()) : Array<
  * @param columnNames you can specify column names to extract otherwise all columns will be extracted
  */
 fun ResultSet.getValuesAsMap(columnNames : Array<String> = getColumnNames()) : Map<String, Any?> {
-    val result = java.util.HashMap<String, Any?>(columnNames.size())
+    val result = java.util.HashMap<String, Any?>(columnNames.size)
 
     columnNames.forEach {
         result[it] = this[it]
@@ -80,12 +80,12 @@ fun ResultSet.getValuesAsMap(columnNames : Array<String> = getColumnNames()) : M
 /**
  * Returns the value at the given column index (starting at 1)
  */
-fun ResultSet.get(columnId: Int): Any? = this.getObject(columnId)
+operator fun ResultSet.get(columnId: Int): Any? = this.getObject(columnId)
 
 /**
  * Returns the value at the given column name
  */
-fun ResultSet.get(columnName: String): Any? = this.getObject(columnName)
+operator fun ResultSet.get(columnName: String): Any? = this.getObject(columnName)
 
 private fun ResultSet.ensureHasRow() : ResultSet {
     if (!next()) {
