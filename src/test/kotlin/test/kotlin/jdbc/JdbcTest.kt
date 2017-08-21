@@ -1,10 +1,10 @@
 package test.kotlin.jdbc
 
+import kotlinext.jdbc.*
 import java.sql.ResultSet
 import javax.sql.DataSource
-import kotlin.jdbc.*
-import kotlin.test.*
 import org.h2.jdbcx.JdbcConnectionPool
+import org.junit.Assert.assertEquals
 import org.junit.Test as test
 
 public val dataSource : DataSource = createDataSource()
@@ -49,7 +49,7 @@ class JdbcTest {
     }
 
     @test fun stringFormat() {
-        dataSource.query(kotlin.template.StringTemplate(arrayOf("select * from foo where id = ", 1))) {
+        dataSource.query("select * from foo where id = 1") {
             for (row in it) {
                 println(row.getValuesAsMap())
             }

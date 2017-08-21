@@ -1,4 +1,4 @@
-package kotlin.jdbc
+package kotlinext.jdbc
 
 /**
  * Helper method to process a statement on this collection

@@ -7,11 +7,11 @@
 
     <groupId>org.jetbrains.kotlin</groupId>
     <artifactId>kotlin-jdbc</artifactId>
-    <version>${kotlin.version}</version>
+    <version>1.1.4</version>
     <packaging>jar</packaging>
 
     <properties>
-        <kotlin.version>1.0.0-beta-1103</kotlin.version>
+        <kotlin.version>1.1.4</kotlin.version>
         <junit.version>4.12</junit.version>
     </properties>
 

@@ -1,4 +1,4 @@
-package kotlin.jdbc
+package kotlinext.jdbc
 
 import java.sql.*
 
